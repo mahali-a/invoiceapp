@@ -1,0 +1,12 @@
+{
+  "name": "invoiceapp",
+  "displayName": "invoiceapp",
+  "expo": {
+    "name": "invoiceapp",
+    "slug": "invoiceapp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
