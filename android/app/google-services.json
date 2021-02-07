@@ -1,0 +1,107 @@
+{
+  "project_info": {
+    "project_number": "668196983365",
+    "firebase_url": "https://invoice-d1f8c.firebaseio.com",
+    "project_id": "invoice-d1f8c",
+    "storage_bucket": "invoice-d1f8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668196983365:android:970bed99949c0d9a7c892c",
+        "android_client_info": {
+          "package_name": "com.invoice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668196983365-9p58odea265vin83ltm3mfj3rvgbj9h1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.invoice",
+            "certificate_hash": "f2690930d44d22f391ae19e10176c0bef2891108"
+          }
+        },
+        {
+          "client_id": "668196983365-nmpi6ichn5cme6vbd74lb13sl4ppi50c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.invoice",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "668196983365-gvr8250s9qlo3dk9dndkghnkih1ilo9s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDG_X1o33s_wUNqvIdIVjH-oHeYq6MYcQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668196983365-gvr8250s9qlo3dk9dndkghnkih1ilo9s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "668196983365-2qfk51aqgur3ack4au86q4md8tljkdqc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.invoice"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668196983365:android:8807b671a81437c27c892c",
+        "android_client_info": {
+          "package_name": "com.invoice.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668196983365-kpu705tq3ltkmjkclphl17e6rd5f2uhi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.invoice.app",
+            "certificate_hash": "f2690930d44d22f391ae19e10176c0bef2891108"
+          }
+        },
+        {
+          "client_id": "668196983365-gvr8250s9qlo3dk9dndkghnkih1ilo9s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDG_X1o33s_wUNqvIdIVjH-oHeYq6MYcQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668196983365-gvr8250s9qlo3dk9dndkghnkih1ilo9s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "668196983365-2qfk51aqgur3ack4au86q4md8tljkdqc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.invoice"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

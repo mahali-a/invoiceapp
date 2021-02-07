@@ -1,4 +1,4 @@
-package com.invoiceapp;
+package com.invoice.app;
 
 import android.os.Bundle;
 
