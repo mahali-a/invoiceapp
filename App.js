@@ -20,6 +20,7 @@ import AddItem from "./src/app/AddItem";
 import Clients from "./src/app/Clients";
 import ChooseTemplate from "./src/app/ChooseTemplate";
 import SideDrawer from "./src/app/SideDrawer";
+import Settings from "./src/app/Settings";
 import auth from "@react-native-firebase/auth";
 
 import { setClientState } from "./src/redux/actions";
@@ -86,7 +87,7 @@ export default function App() {
       </Stack.Navigator>
     );
   };
-  const middleware = [ReduxThunk, logger];
+  const middleware = [ReduxThunk];
   const store = createStore(reducer, {}, applyMiddleware(...middleware));
 
   return (
@@ -102,7 +103,7 @@ export default function App() {
             >
               <Drawer.Screen name="Invoice" component={InvoiceStack} />
               <Drawer.Screen name="Clients" component={Clients} />
-              {/* <Drawer.Screen name="Settings" component={() => <View />} /> */}
+              <Drawer.Screen name="Settings" component={Settings} />
             </Drawer.Navigator>
           )}
         </NavigationContainer>

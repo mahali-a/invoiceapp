@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import * as Print from "expo-print";
 import * as MediaLibrary from "expo-media-library";
 import * as Sharing from "expo-sharing";
+import * as FileSystem from "expo-file-system";
 
 export const getCurrency = (number) => {
   return new Intl.NumberFormat("en-US", {
@@ -17,6 +18,7 @@ export const createAndSavePDF = async (html) => {
 
     const permission = await MediaLibrary.requestPermissionsAsync();
     const { uri } = await Print.printToFileAsync({ html });
+
     isShared = await Sharing.shareAsync(uri);
 
     if (permission.granted) {
@@ -28,6 +30,6 @@ export const createAndSavePDF = async (html) => {
       throw new Error("Something went wrong...");
     }
   } catch (error) {
-    throw err;
+    throw error;
   }
 };

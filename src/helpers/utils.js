@@ -3,6 +3,7 @@ import dateFormat from "dateformat";
 export const createHTML1 = ({
   businessName,
   email,
+  profile,
   client,
   invoiceNumber,
   invoiceDate,
@@ -13,7 +14,7 @@ export const createHTML1 = ({
   notes,
 }) => {
   return `
-      <!DOCTYPE html>
+      <!DOCTYPE html> 
 <!-- saved from url=(0014)about:internet -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
@@ -223,7 +224,7 @@ export const createHTML1 = ({
   <body>
     <header class="clearfix">
       <div id="logo">
-        <img src="https://firebasestorage.googleapis.com/v0/b/invoice-d1f8c.appspot.com/o/logo.png?alt=media&token=5cbd182d-d7cd-4421-a288-a5c3447b3326">
+        <img src=${profile.logo}>
       </div>
       <div id="company">
         <h2 class="name">${businessName}</h2>

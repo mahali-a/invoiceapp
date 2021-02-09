@@ -59,12 +59,7 @@ const SideDrawer = (props) => {
               <MaterialCommunityIcons name="tune" color={color} size={size} />
             )}
             label="Settings"
-            onPress={() =>
-              ToastAndroid.show(
-                "Settings under construction!",
-                ToastAndroid.LONG
-              )
-            }
+            onPress={() => props.navigation.navigate("Settings")}
           />
         </Drawer.Section>
         <DrawerItem

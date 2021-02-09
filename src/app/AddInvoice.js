@@ -75,31 +75,6 @@ const AddInvoice = ({ navigation, route }) => {
     }
   };
 
-  const simpleHtml = (sholudRemovePageMargin = false) => () =>
-    createHTML({
-      content: `
-    <h1>Hello, UppLabs! ${
-      sholudRemovePageMargin ? "I'm without page margin!" : ""
-    }</h1>
-  `,
-      sholudRemovePageMargin,
-      styles: `
-      body {
-    `,
-    });
-
-  const sharePdf = (htmlFactory) => async () => {
-    try {
-      const html = await simpleHtml();
-      if (html) {
-        await createAndSavePDF(html);
-        Alert.alert("Success!", "Document has been successfully saved!");
-      }
-    } catch (error) {
-      Alert.alert("Error", error.message || "Something went wrong...");
-    }
-  };
-
   const showOptions = () => {
     const values = {
       invoiceNo: invoiceNo,
@@ -251,6 +226,40 @@ const AddInvoice = ({ navigation, route }) => {
     }
   };
 
+  const createPdf = async () => {
+    console.warn("creating PDF");
+
+    let func;
+
+    if (app.template == 1) {
+      func = createHTML1;
+    } else if (app.template == 2) {
+      func = createHTML2;
+    } else {
+      func = createHTML3;
+    }
+    try {
+      const html = await func({
+        businessName: profile.companyName,
+        email: profile.email,
+        profile,
+        client: app.selectedClient,
+        invoiceNumber: invoiceNo,
+        invoiceDate: date,
+        items: app.currentItems,
+        subtotal: subtotal,
+        tax: tax,
+        total: total,
+        notes: notes,
+      });
+      if (html) {
+        await createAndSavePDF(html);
+      }
+    } catch (error) {
+      Alert.alert("Error", error.message || "Something went wrong...");
+    }
+  };
+
   const resetState = () => {
     setFilePath("");
 
@@ -337,7 +346,7 @@ const AddInvoice = ({ navigation, route }) => {
         </View>
       </RectButton>
       <RectButton
-        onPress={() => sharePdf()}
+        onPress={() => createPdf()}
         style={{ backgroundColor: "#fff", marginBottom: 5 }}
       >
         <View
