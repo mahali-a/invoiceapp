@@ -5,6 +5,7 @@ import {
   SET_ROOT_STATE,
   SET_INVOICE_STATE,
   SET_CLIENT_STATE,
+  SET_ITEMS_STATE,
 } from "./types";
 
 const INITIAL_STATE = {
@@ -20,6 +21,7 @@ const INITIAL_STATE = {
     template: 1,
   },
   clients: { data: [] },
+  items: { data: [] },
   rootState: {},
   invoices: { data: [] },
 };
@@ -45,6 +47,11 @@ const AppReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         clients: { ...state.clients, ...action.payload },
+      };
+    case SET_ITEMS_STATE:
+      return {
+        ...state,
+        items: { ...state.items, ...action.payload },
       };
     case SET_AUTH_STATE:
       return {

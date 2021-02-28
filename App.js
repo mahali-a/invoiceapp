@@ -26,6 +26,8 @@ import auth from "@react-native-firebase/auth";
 import { setClientState } from "./src/redux/actions";
 import ViewPdf from "./src/app/ViewPdf";
 import Login from "./src/auth/Login";
+import Items from "./src/app/Items";
+import ItemList from "./src/app/ItemList";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -66,6 +68,7 @@ export default function App() {
         <Stack.Screen name="AddItem" component={AddItem} />
         <Stack.Screen name="AddNewClient" component={AddNewClient} />
         <Stack.Screen name="ClientList" component={ClientList} />
+        <Stack.Screen name="ItemList" component={ItemList} />
         <Stack.Screen name="ViewPdf" component={ViewPdf} />
         <Stack.Screen name="ChooseTemplate" component={ChooseTemplate} />
       </Stack.Navigator>
@@ -103,6 +106,13 @@ export default function App() {
             >
               <Drawer.Screen name="Invoice" component={InvoiceStack} />
               <Drawer.Screen name="Clients" component={Clients} />
+              <Drawer.Screen name="Items" component={Items} />
+              <Drawer.Screen
+                name="AddItem"
+                unmountOnBlur={true}
+                component={AddItem}
+              />
+              <Drawer.Screen name="AddClient" component={AddNewClient} />
               <Drawer.Screen name="Settings" component={Settings} />
             </Drawer.Navigator>
           )}

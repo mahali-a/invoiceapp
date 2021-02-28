@@ -12,7 +12,7 @@ import {
   TouchableRipple,
   Switch,
 } from "react-native-paper";
-import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Ionicons, Feather } from "@expo/vector-icons";
 import auth from "@react-native-firebase/auth";
 import { useSelector } from "react-redux";
 
@@ -53,6 +53,13 @@ const SideDrawer = (props) => {
             )}
             label="Clients"
             onPress={() => props.navigation.navigate("Clients")}
+          />
+          <DrawerItem
+            icon={({ color, size }) => (
+              <Feather name="box" color={color} size={size} />
+            )}
+            label="Items"
+            onPress={() => props.navigation.navigate("Items")}
           />
           <DrawerItem
             icon={({ color, size }) => (

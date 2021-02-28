@@ -16,11 +16,15 @@ import { getCurrency } from "../util";
 import { useDispatch, useSelector } from "react-redux";
 import { setAppState } from "../redux/actions";
 import { SET_APP_STATE } from "../redux/types";
+import database from "@react-native-firebase/database";
+import auth from "@react-native-firebase/auth";
 
 const AddItem = ({ navigation, route }) => {
   const dispatch = useDispatch();
 
   const [description, setDescription] = useState("");
+  const [id, setId] = useState(null);
+  const [isSaved, setIsSaved] = useState(null);
   const [total, setTotal] = useState(0);
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
@@ -31,10 +35,24 @@ const AddItem = ({ navigation, route }) => {
   const currentItems = useSelector((state) => state.app.appState.currentItems);
 
   useEffect(() => {
-    let total =
-      parseInt(price) * parseInt(quantity) -
-      (parseInt(discount) + parseInt(tax));
-    setTotal(parseInt(total));
+    let params = route.params;
+    console.log("param", params);
+
+    if (params !== undefined) {
+      setId(params.item.id);
+      setIsSaved(params.isSaved);
+      setDescription(params.item.description);
+      setPrice(params.item.price);
+      setQuantity("1");
+    }
+  }, []);
+
+  useEffect(() => {
+    let subtotal = price * quantity;
+    // let _tax = (tax / 100) * subtotal;
+    // let _discount = (discount / 100) * subtotal;
+
+    setTotal(subtotal);
   }, [price, quantity, discount, tax]);
 
   const validate = (values) => {
@@ -54,16 +72,41 @@ const AddItem = ({ navigation, route }) => {
 
   const handleSubmit = () => {
     const values = { description, price, quantity, tax, discount };
+    let uploadValues = { description, price };
 
     let errors = validate(values);
     setErrors(errors);
 
     if (Object.keys(errors).length === 0) {
-      dispatch({
-        type: SET_APP_STATE,
-        payload: { currentItems: [...currentItems, values] },
-      });
-      navigation.navigate("AddInvoice");
+      let user = auth().currentUser;
+      if (!isSaved) {
+        if (id === null) {
+          database()
+            .ref(`/users/${user.uid}/items`)
+            .push(uploadValues)
+            .then(() => {
+              dispatch({
+                type: SET_APP_STATE,
+                payload: { currentItems: [...currentItems, values] },
+              });
+
+              navigation.navigate("AddInvoice");
+            });
+        } else {
+          database()
+            .ref(`/users/${user.uid}/items/${id}`)
+            .update(uploadValues)
+            .then(() => {
+              navigation.navigate("Items");
+            });
+        }
+      } else {
+        dispatch({
+          type: SET_APP_STATE,
+          payload: { currentItems: [...currentItems, values] },
+        });
+        navigation.navigate("AddInvoice");
+      }
     }
   };
 
@@ -77,8 +120,24 @@ const AddItem = ({ navigation, route }) => {
   return (
     <View style={{ flex: 1 }}>
       <Appbar.Header>
-        <Appbar.BackAction onPress={() => navigation.pop()} />
+        <Appbar.BackAction
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
         <Appbar.Content title="Add Item" />
+        {id && (
+          <Appbar.Action
+            icon="delete"
+            onPress={() =>
+              database()
+                .ref(`/users/${auth().currentUser.uid}/items/${id}`)
+                .remove()
+                .then(() => navigation.goBack())
+                .catch(() => alert(e))
+            }
+          />
+        )}
       </Appbar.Header>
 
       <ScrollView
@@ -135,7 +194,7 @@ const AddItem = ({ navigation, route }) => {
           </View>
         </View>
 
-        <View
+        {/* <View
           style={{
             width: "100%",
             backgroundColor: "#fff",
@@ -157,7 +216,7 @@ const AddItem = ({ navigation, route }) => {
             value={discount}
             onChangeText={(text) => setDiscount(text)}
           />
-          <HelperText>Must be an amount</HelperText>
+          <HelperText>Must be a percentage</HelperText>
         </View>
 
         <View
@@ -182,8 +241,8 @@ const AddItem = ({ navigation, route }) => {
             value={tax}
             onChangeText={(text) => setTax(text)}
           />
-          <HelperText>Must be an amount</HelperText>
-        </View>
+          <HelperText>Must be a percentage</HelperText>
+        </View> */}
       </ScrollView>
 
       <View
@@ -222,7 +281,7 @@ const AddItem = ({ navigation, route }) => {
           mode="contained"
           onPress={() => handleSubmit()}
         >
-          Add Item
+          {!isSaved ? "Save Item" : "Add Item"}
         </Button>
       </View>
     </View>

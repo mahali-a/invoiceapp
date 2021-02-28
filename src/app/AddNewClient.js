@@ -130,16 +130,18 @@ const AddNewClient = ({ navigation, route }) => {
           title="Client"
           subtitle={id ? "Update client details" : "Add new client"}
         />
-        <Appbar.Action
-          icon="delete"
-          onPress={() =>
-            database()
-              .ref(`/users/${auth().currentUser.uid}/clients/${id}`)
-              .remove()
-              .then(() => navigation.navigate("Clients"))
-              .catch(() => alert(e))
-          }
-        />
+        {id && (
+          <Appbar.Action
+            icon="delete"
+            onPress={() =>
+              database()
+                .ref(`/users/${auth().currentUser.uid}/clients/${id}`)
+                .remove()
+                .then(() => navigation.navigate("Clients"))
+                .catch(() => alert(e))
+            }
+          />
+        )}
       </Appbar.Header>
 
       <ScrollView

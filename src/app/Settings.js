@@ -87,6 +87,7 @@ const Settings = ({ navigation }) => {
       const url = await storage()
         .ref(`/logo${auth().currentUser.uid}`)
         .getDownloadURL();
+      console.warn(url);
       setImageUrl(url);
     } catch (e) {
       console.error(e);

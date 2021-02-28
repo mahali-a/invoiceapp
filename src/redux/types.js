@@ -4,3 +4,4 @@ export const SET_APP_STATE = "set_app_state";
 export const SET_ROOT_STATE = "set_root_state";
 export const SET_CLIENT_STATE = "set_client_state";
 export const SET_INVOICE_STATE = "set_invoice_state";
+export const SET_ITEMS_STATE = "set_items_state";

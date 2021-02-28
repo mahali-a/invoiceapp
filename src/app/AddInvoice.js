@@ -7,6 +7,7 @@ import {
   PermissionsAndroid,
   Platform,
   Alert,
+  TextInput as RNTextInput,
 } from "react-native";
 import { RectButton, TouchableOpacity } from "react-native-gesture-handler";
 import {
@@ -162,20 +163,12 @@ const AddInvoice = ({ navigation, route }) => {
     let subtotal = app.currentItems.reduce((sum, i) => {
       return sum + i.price * i.quantity;
     }, 0);
-    let tax = app.currentItems.reduce((sum, i) => {
-      return sum + i.tax;
-    }, 0);
-    let discount = app.currentItems.reduce((sum, i) => {
-      return sum + i.discount;
-    }, 0);
-    let total;
-    total = subtotal;
+    let _tax = (tax / 100) * subtotal;
+    let _discount = (discount / 100) * subtotal;
+    let total = subtotal + _tax - _discount;
     setSubtotal(subtotal);
-    setTotal(total - tax - discount);
-
-    setDiscount(discount);
-    setTax(tax);
-  }, [app.currentItems, app]);
+    setTotal(total);
+  }, [app.currentItems, discount, tax]);
 
   const validate = (values) => {
     const errors = {};
@@ -566,7 +559,7 @@ const AddInvoice = ({ navigation, route }) => {
             color="#f2f2f2"
             uppercase={false}
             labelStyle={{ color: "#047EE4" }}
-            onPress={() => navigation.navigate("AddItem")}
+            onPress={() => navigation.navigate("ItemList")}
             style={{ width: "40%", marginTop: 15 }}
           >
             Add Item
@@ -628,28 +621,42 @@ const AddInvoice = ({ navigation, route }) => {
               flexDirection: "row",
               justifyContent: "space-between",
               borderBottomWidth: 1,
+              alignItems: "center",
               borderColor: "#ddd",
               paddingVertical: 20,
             }}
           >
             <Text style={{ color: "#717171", fontSize: 16 }}>Discount</Text>
-            <Text style={{ color: "#000", fontSize: 16 }}>
-              {getCurrency(discount)}
-            </Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <RNTextInput
+                keyboardType="number-pad"
+                value={discount}
+                onChangeText={(e) => setDiscount(e)}
+                style={{ color: "#000", fontSize: 16 }}
+              />
+              <Text>%</Text>
+            </View>
           </View>
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
+              alignItems: "center",
               borderBottomWidth: 1,
               borderColor: "#ddd",
               paddingVertical: 20,
             }}
           >
             <Text style={{ color: "#717171", fontSize: 16 }}>Tax</Text>
-            <Text style={{ color: "#000", fontSize: 16 }}>
-              {getCurrency(tax)}
-            </Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <RNTextInput
+                keyboardType="number-pad"
+                value={tax}
+                onChangeText={(e) => setTax(e)}
+                style={{ color: "#000", fontSize: 16 }}
+              />
+              <Text>%</Text>
+            </View>
           </View>
 
           <View

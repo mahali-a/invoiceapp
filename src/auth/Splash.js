@@ -10,6 +10,7 @@ import {
   SET_CLIENT_STATE,
   SET_INVOICE_STATE,
   SET_PROFILE_STATE,
+  SET_ITEMS_STATE,
 } from "../redux/types";
 
 const Splash = ({ navigation }) => {
@@ -23,8 +24,7 @@ const Splash = ({ navigation }) => {
   function onAuthStateChanged(user) {
     database()
       .ref(`users/${auth().currentUser.uid}/userProfile/`)
-      .once("value")
-      .then((snapshot) => {
+      .on("value", (snapshot) => {
         return dispatch({
           type: SET_PROFILE_STATE,
           payload: { userData: snapshot.val() },
@@ -63,6 +63,24 @@ const Splash = ({ navigation }) => {
         return dispatch({
           type: SET_CLIENT_STATE,
           payload: { data: fetchedClients },
+        });
+      });
+
+    database()
+      .ref(`users/${auth().currentUser.uid}/items/`)
+      .on("value", (snapshot) => {
+        const fetchedItems = [];
+        snapshot.forEach((child) => {
+          const item = child.val();
+          fetchedItems.push({
+            id: child.key,
+            ...item,
+          });
+        });
+
+        return dispatch({
+          type: SET_ITEMS_STATE,
+          payload: { data: fetchedItems },
         });
       });
 

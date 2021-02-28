@@ -40,15 +40,15 @@ const Signup = ({ navigation }) => {
     if (!values.email) {
       errors.email = "Email is required";
     }
-    if (!values.companyName) {
-      errors.companyName = "Company name is required";
-    }
-    if (!values.address) {
-      errors.address = "Address is required";
-    }
-    if (!values.phoneNo) {
-      errors.phoneNo = "Phone number is required";
-    }
+    // if (!values.companyName) {
+    //   errors.companyName = "Company name is required";
+    // }
+    // if (!values.address) {
+    //   errors.address = "Address is required";
+    // }
+    // if (!values.phoneNo) {
+    //   errors.phoneNo = "Phone number is required";
+    // }
     if (!values.password) {
       errors.password = "Password is required";
     }
@@ -194,6 +194,13 @@ const Signup = ({ navigation }) => {
             PERSONAL DETAILS
           </Text>
           <TextInput
+            label="Fullname"
+            style={{ width: "100%", backgroundColor: "#fff" }}
+            value={fullname}
+            onChangeText={(text) => setFullname(text)}
+            error={hasError("fullname")}
+          />
+          <TextInput
             error={true}
             label="Email"
             style={{ width: "100%", backgroundColor: "#fff" }}
@@ -211,7 +218,7 @@ const Signup = ({ navigation }) => {
           />
         </View>
 
-        <View
+        {/* <View
           style={{
             width: "100%",
             backgroundColor: "#fff",
@@ -225,13 +232,7 @@ const Signup = ({ navigation }) => {
           >
             COMPANY DETAILS
           </Text>
-          <TextInput
-            label="Fullname"
-            style={{ width: "100%", backgroundColor: "#fff" }}
-            value={fullname}
-            onChangeText={(text) => setFullname(text)}
-            error={hasError("fullname")}
-          />
+
           <TextInput
             label="Company Name"
             style={{ width: "100%", backgroundColor: "#fff" }}
@@ -287,7 +288,7 @@ const Signup = ({ navigation }) => {
             value={mobileMoney}
             onChangeText={(text) => setMobileMoney(text)}
           />
-        </View>
+        </View> */}
 
         <View
           style={{

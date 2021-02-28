@@ -15,20 +15,20 @@ import { Button, Title, Appbar } from "react-native-paper";
 import { DrawerActions } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
-const Clients = ({ navigation }) => {
-  const clientList = useSelector((state) => state.app.clients.data);
+const Items = ({ navigation }) => {
+  const itemsList = useSelector((state) => state.app.items.data);
 
-  const [clients, setClients] = useState(clientList);
+  const [items, setItems] = useState(itemsList);
 
-  const [filteredClients, setFilteredClients] = useState(clientList);
+  const [filteredItems, setFilteredItems] = useState(itemsList);
   const [searchTerm, setSearchTerm] = useState("");
 
   const onChange = (e) => {
     setSearchTerm(e);
-    let results = clients.filter((item) => {
+    let results = items.filter((item) => {
       if (item.name.toLowerCase().includes(e.toLowerCase())) return item;
     });
-    setFilteredClients(results);
+    setFilteredItems(results);
   };
 
   const renderSeparatorView = () => {
@@ -50,7 +50,7 @@ const Clients = ({ navigation }) => {
           icon="menu"
           onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
         />
-        <Appbar.Content title="Clients" />
+        <Appbar.Content title="Items" />
       </Appbar.Header>
       <FlatList
         contentContainerStyle={{}}
@@ -93,18 +93,18 @@ const Clients = ({ navigation }) => {
                   textTransform: "capitalize",
                 }}
                 mode="contained"
-                onPress={() => navigation.navigate("AddClient")}
+                onPress={() => navigation.navigate("AddItem")}
               >
-                Add Client
+                Add Item
               </Button>
             </View>
           </View>
         )}
-        data={clientList}
+        data={itemsList}
         ItemSeparatorComponent={() => renderSeparatorView()}
         renderItem={({ item }) => (
           <RectButton
-            onPress={() => navigation.navigate("AddNewClient", { item })}
+            onPress={() => navigation.navigate("AddItem", { item })}
             style={{
               padding: "3%",
               paddingHorizontal: "5%",
@@ -116,16 +116,16 @@ const Clients = ({ navigation }) => {
           >
             <UserAvatar
               size={50}
-              name={item.fullname}
+              name={item.description}
               bgColors={["#ccc", "#717171", "#ccaabb"]}
             />
             <View style={{ marginLeft: 10 }}>
               <Text
                 style={{ fontWeight: "bold", fontSize: 18, color: "#2d2d2d" }}
               >
-                {item.fullname}
+                {item.description}
               </Text>
-              <Text>{item.email}</Text>
+              <Text>GHS {item.price}</Text>
             </View>
           </RectButton>
         )}
@@ -134,4 +134,4 @@ const Clients = ({ navigation }) => {
   );
 };
 
-export default Clients;
+export default Items;
