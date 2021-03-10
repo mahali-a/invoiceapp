@@ -42,24 +42,9 @@ const AddNewClient = ({ navigation, route }) => {
     if (!values.fullname) {
       errors.fullname = "Fullname is required";
     }
-    if (!values.email) {
-      errors.email = "Email is required";
-    }
-    if (!values.company) {
-      errors.company = "Company name is required";
-    }
-    if (!values.address) {
-      errors.address = "Address is required";
-    }
+
     if (!values.phoneNo) {
       errors.phoneNo = "Phone number is required";
-    }
-
-    if (!values.city) {
-      errors.city = "City is required";
-    }
-    if (!values.country) {
-      errors.country = "Country is required";
     }
 
     return errors;
@@ -170,6 +155,13 @@ const AddNewClient = ({ navigation, route }) => {
             error={hasError("fullname")}
           />
           <TextInput
+            label="Phone Number"
+            style={{ width: "100%", backgroundColor: "#fff" }}
+            value={phoneNo}
+            onChangeText={(text) => setPhoneNo(text)}
+            error={hasError("phoneNo")}
+          />
+          <TextInput
             label="Company Name"
             style={{ width: "100%", backgroundColor: "#fff" }}
             value={company}
@@ -182,13 +174,6 @@ const AddNewClient = ({ navigation, route }) => {
             value={email}
             onChangeText={(text) => setEmail(text)}
             error={hasError("email")}
-          />
-          <TextInput
-            label="Phone Number"
-            style={{ width: "100%", backgroundColor: "#fff" }}
-            value={phoneNo}
-            onChangeText={(text) => setPhoneNo(text)}
-            error={hasError("phoneNo")}
           />
         </View>
 

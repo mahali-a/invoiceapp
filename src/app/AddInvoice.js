@@ -46,13 +46,15 @@ const AddInvoice = ({ navigation, route }) => {
 
   // const [items, setItems] = useState([]);
 
-  const [invoiceNo, setInvoiceNo] = useState("");
+  const [invoiceNo, setInvoiceNo] = useState(() =>
+    Date.now().toString().slice(-4)
+  );
   const [invoiceTo, setinvoiceTo] = useState("");
   const [id, setId] = useState(null);
   const [total, setTotal] = useState("");
   const [subtotal, setSubtotal] = useState("");
-  const [tax, setTax] = useState("");
-  const [discount, setDiscount] = useState("");
+  const [tax, setTax] = useState("0");
+  const [discount, setDiscount] = useState("0");
   const [notes, setNotes] = useState("");
   const [errors, setErrors] = useState({});
 
@@ -503,7 +505,7 @@ const AddInvoice = ({ navigation, route }) => {
                     {app.selectedClient.fullname}
                   </Text>
                   <Text style={{ color: "#717171", fontSize: 12 }}>
-                    {app.selectedClient.email}
+                    {app.selectedClient.phoneNo}
                   </Text>
                 </View>
               )}
@@ -744,65 +746,4 @@ const AddInvoice = ({ navigation, route }) => {
   );
 };
 
-const s = StyleSheet.create({
-  content__header: {
-    padding: 15,
-    paddingBottom: 0,
-
-    backgroundColor: "rgba(255, 255, 255, 0.85)",
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-  },
-
-  content__heading: {
-    marginBottom: 2,
-
-    fontSize: 24,
-    fontWeight: "600",
-    color: "#333",
-  },
-
-  content__subheading: {
-    marginBottom: 20,
-
-    fontSize: 16,
-    color: "#ccc",
-  },
-
-  content__inside: {
-    padding: 15,
-  },
-
-  content__paragraph: {
-    fontSize: 15,
-    fontWeight: "200",
-    lineHeight: 22,
-    color: "#666",
-  },
-
-  content__scrollview: {
-    marginVertical: 20,
-  },
-
-  content__block: {
-    width: 200,
-    height: 80,
-
-    marginRight: 20,
-
-    backgroundColor: "#ccc",
-  },
-
-  content__input: {
-    paddingVertical: 15,
-    marginBottom: 10,
-
-    width: "100%",
-
-    borderWidth: 1,
-    borderColor: "transparent",
-    borderBottomColor: "#cdcdcd",
-    borderRadius: 6,
-  },
-});
 export default AddInvoice;

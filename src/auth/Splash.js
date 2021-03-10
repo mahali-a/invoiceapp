@@ -104,7 +104,7 @@ const Splash = ({ navigation }) => {
           letterSpacing: 1.2,
         }}
       >
-        Invioce
+        Invoice
       </Text>
       <Text style={{ fontSize: 18, color: "#fff", opacity: 0.7 }}>OnTheGo</Text>
     </View>

@@ -125,7 +125,7 @@ const Clients = ({ navigation }) => {
               >
                 {item.fullname}
               </Text>
-              <Text>{item.email}</Text>
+              <Text>{item.phoneNo}</Text>
             </View>
           </RectButton>
         )}
