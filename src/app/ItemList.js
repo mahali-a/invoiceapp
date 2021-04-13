@@ -193,7 +193,7 @@ const ItemList = ({ navigation }) => {
           }}
           large
           icon="plus"
-          onPress={() => navigation.navigate({ name: "AddNewClient" })}
+          onPress={() => navigation.navigate({ name: "AddItem" })}
         />
       </View>
     </View>

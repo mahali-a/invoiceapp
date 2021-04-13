@@ -28,6 +28,7 @@ import ViewPdf from "./src/app/ViewPdf";
 import Login from "./src/auth/Login";
 import Items from "./src/app/Items";
 import ItemList from "./src/app/ItemList";
+import Sign from "./src/app/AddSignature";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -74,6 +75,19 @@ export default function App() {
       </Stack.Navigator>
     );
   };
+  const SettingsStack = () => {
+    return (
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+        initialRouteName="Settings"
+      >
+        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="AddSignature" component={Sign} />
+      </Stack.Navigator>
+    );
+  };
 
   const AuthStack = () => {
     return (
@@ -113,7 +127,7 @@ export default function App() {
                 component={AddItem}
               />
               <Drawer.Screen name="AddClient" component={AddNewClient} />
-              <Drawer.Screen name="Settings" component={Settings} />
+              <Drawer.Screen name="Settings" component={SettingsStack} />
             </Drawer.Navigator>
           )}
         </NavigationContainer>

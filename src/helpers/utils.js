@@ -12,6 +12,7 @@ export const createHTML1 = ({
   tax,
   total,
   notes,
+  signature,
 }) => {
   return `
       <!DOCTYPE html> 
@@ -61,8 +62,14 @@ export const createHTML1 = ({
     }
     
     #logo img {
-      height: 70px;
+      height: 100px;
+      width: 100px
     }
+
+      .signature img{
+        width: 120px;
+        heigth: 80px;
+      }
     
     #company {
       float: right;
@@ -291,6 +298,10 @@ export const createHTML1 = ({
           </tr>
         </tfoot>
       </table>
+            <div class="signature">
+          <img src=${signature} />
+        </div>
+        <br />
       <div id="thanks">Thank you!</div>
       <div id="notices">
         <div>NOTICE:</div>
@@ -319,6 +330,7 @@ export const createHTML3 = ({
   tax,
   total,
   notes,
+  signature,
 }) => {
   return `
     <!DOCTYPE html>
@@ -408,6 +420,11 @@ export const createHTML3 = ({
       .clearfix {
         display: block;
         clear: both;
+      }
+
+        .signature img{
+        width: 120px;
+        heigth: 80px;
       }
 
       .hidden {
@@ -545,6 +562,7 @@ export const createHTML3 = ({
         text-align: right;
         border-bottom: 1px solid #444;
         text-transform: uppercase;
+        font-size: 12px;
       }
       #items table th:nth-child(2) {
         width: 30%;
@@ -769,8 +787,12 @@ export const createHTML3 = ({
         <div class="clearfix"></div>
 
         <section id="terms">
+               <div class="signature">
+          <img src=${signature} />
+        </div>
+        <br />
           <span class="hidden">NOTES</span>
-          <div>{notes}</div>
+          <div>${notes}</div>
         </section>
       </div>
     </div>
@@ -792,6 +814,7 @@ export const createHTML2 = ({
   tax,
   total,
   notes,
+  signature,
 }) => {
   return `
       <!DOCTYPE html>
@@ -1009,8 +1032,13 @@ export const createHTML2 = ({
         margin-right: 20px;
       }
       #memo .logo img {
-        width: 150px;
+        width: 100px;
         height: 100px;
+      }
+
+      .signature img{
+        width: 120px;
+        heigth: 80px;
       }
       #memo .company-info {
         float: right;
@@ -1348,14 +1376,23 @@ export const createHTML2 = ({
       <section id="invoice-info">
         
 
-        <br />
+     
 
         <div><span>GHS</span> <span>GHANA CEDIS</span></div>
-     
+           <br />
+      <div class="signature">
+          <img src=${signature} />
+        </div>
+        
+        <br />
+
+         <div class="notes">${notes}</div>
       </section>
+      <br />
 
       <section id="terms">
-        <div class="notes">${notes}</div>
+      
+       
 
         <br />
 

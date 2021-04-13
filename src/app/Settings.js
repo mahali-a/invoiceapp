@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Image, ScrollView, Text, View, ToastAndroid } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import { Appbar, Button, Headline, TextInput, Title } from "react-native-paper";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import * as ImagePicker from "expo-image-picker";
-import Constants from "expo-constants";
 import auth from "@react-native-firebase/auth";
 import database from "@react-native-firebase/database";
 import storage from "@react-native-firebase/storage";
 import { useSelector } from "react-redux";
 import { DrawerActions } from "@react-navigation/native";
+import BottomSheet from "reanimated-bottom-sheet";
+import Sign from "./AddSignature";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Settings = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
+  const [signatureUrl, setSignatureUrl] = useState("");
   const [loading, setLoading] = useState("");
   const [uploading, setUploading] = useState("");
   const [transferred, setTransferred] = useState("");
@@ -31,16 +34,20 @@ const Settings = ({ navigation }) => {
   const profile = useSelector((state) => state.app.profileState.userData);
 
   useEffect(() => {
-    setFullname(profile.fullname);
-    setCompanyName(profile.companyName);
-    setAddress(profile.address);
-    setPhoneNo(profile.phoneNo);
-    setBank(profile.bank);
-    setAccount(profile.setAccount);
-    setMobileMoney(profile.mobileMoney);
-    setEmail(profile.email);
+    setFullname(profile?.fullname);
+    setCompanyName(profile?.companyName);
+    setAddress(profile?.address);
+    setPhoneNo(profile?.phoneNo);
+    setBank(profile?.bank);
+    setAccount(profile?.setAccount);
+    setMobileMoney(profile?.mobileMoney);
+    setEmail(profile?.email);
 
-    setImageUrl(profile.logo);
+    setImageUrl(profile?.logo);
+  }, [profile]);
+
+  useEffect(() => {
+    getData();
   }, []);
 
   let pickImage = async () => {
@@ -56,15 +63,6 @@ const Settings = ({ navigation }) => {
     }
     if (!values.email) {
       errors.email = "Email is required";
-    }
-    if (!values.companyName) {
-      errors.companyName = "Company name is required";
-    }
-    if (!values.address) {
-      errors.address = "Address is required";
-    }
-    if (!values.phoneNo) {
-      errors.phoneNo = "Phone number is required";
     }
 
     return errors;
@@ -95,6 +93,17 @@ const Settings = ({ navigation }) => {
     setUploading(false);
 
     setImage(null);
+  };
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("signature");
+      if (value !== null) {
+        setSignatureUrl(value);
+      }
+    } catch (e) {
+      // error reading value
+    }
   };
 
   const handleSubmit = () => {
@@ -143,6 +152,9 @@ const Settings = ({ navigation }) => {
     } else return false;
   };
 
+  const openSignature = () => {
+    navigation.navigate("AddSignature");
+  };
   return (
     <View style={{ flex: 1 }}>
       <Appbar.Header>
@@ -170,7 +182,9 @@ const Settings = ({ navigation }) => {
         >
           {imageUrl ? (
             <Image
-              source={{ uri: imageUrl }}
+              source={{
+                uri: imageUrl,
+              }}
               style={{
                 width: 80,
                 height: 80,
@@ -194,7 +208,47 @@ const Settings = ({ navigation }) => {
             </View>
           )}
 
-          <Text>Add Company Logo</Text>
+          <Text>Tap to Change Company Logo</Text>
+        </RectButton>
+
+        <RectButton
+          onPress={openSignature}
+          style={{
+            alignItems: "center",
+            flexDirection: "row",
+            backgroundColor: "#fff",
+            paddingVertical: 10,
+            marginTop: 10,
+            paddingLeft: 20,
+          }}
+        >
+          {signatureUrl ? (
+            <Image
+              source={{ uri: signatureUrl }}
+              style={{
+                width: 80,
+                height: 80,
+                borderRadius: 10,
+                marginRight: 10,
+              }}
+            />
+          ) : (
+            <View
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 100,
+                backgroundColor: "#f2f2f2",
+                marginRight: 20,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <AntDesign size={28} color="#047EE4" name="camera" />
+            </View>
+          )}
+
+          <Text>Modify Signature</Text>
         </RectButton>
         <View
           style={{

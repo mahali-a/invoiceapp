@@ -18,6 +18,7 @@ import {
   TextInput,
   Title,
 } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Entypo from "react-native-vector-icons/Entypo";
 import { DatePickerModal } from "react-native-paper-dates";
@@ -38,6 +39,7 @@ const AddInvoice = ({ navigation, route }) => {
 
   const app = useSelector((state) => state.app.appState);
   const profile = useSelector((state) => state.app.profileState.userData);
+  const invoices = useSelector((state) => state.app.invoices.data);
 
   const invoiceModal = useRef();
   const [filePath, setFilePath] = useState("");
@@ -46,9 +48,7 @@ const AddInvoice = ({ navigation, route }) => {
 
   // const [items, setItems] = useState([]);
 
-  const [invoiceNo, setInvoiceNo] = useState(() =>
-    Date.now().toString().slice(-4)
-  );
+  const [invoiceNo, setInvoiceNo] = useState(padNumber(invoices.length + 1));
   const [invoiceTo, setinvoiceTo] = useState("");
   const [id, setId] = useState(null);
   const [total, setTotal] = useState("");
@@ -94,6 +94,11 @@ const AddInvoice = ({ navigation, route }) => {
     }
   };
 
+  function padNumber(n) {
+    n = n + "";
+    return n.length >= 5 ? n : new Array(5 - n.length + 1).join("0") + n;
+  }
+
   const createPDF = async () => {
     if (await isPermitted()) {
       let func;
@@ -119,6 +124,7 @@ const AddInvoice = ({ navigation, route }) => {
           tax: tax,
           total: total,
           notes: notes,
+          signature: await AsyncStorage.getItem("signature"),
         }),
         //File Name
         fileName: `${invoiceNo}`,
@@ -246,6 +252,7 @@ const AddInvoice = ({ navigation, route }) => {
         tax: tax,
         total: total,
         notes: notes,
+        signature: await AsyncStorage.getItem("signature"),
       });
       if (html) {
         await createAndSavePDF(html);
