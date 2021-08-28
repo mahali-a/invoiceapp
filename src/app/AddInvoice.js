@@ -30,7 +30,12 @@ import auth from "@react-native-firebase/auth";
 import { Modalize } from "react-native-modalize";
 import Icon from "./Icons";
 import RNHTMLtoPDF from "react-native-html-to-pdf";
-import { createHTML2, createHTML1, createHTML3 } from "../helpers/utils";
+import {
+  createHTML2,
+  createHTML1,
+  createHTML3,
+  createHTML4,
+} from "../helpers/utils";
 import { SET_APP_STATE } from "../redux/types";
 import { createAndSavePDF } from "../util/index";
 
@@ -107,8 +112,10 @@ const AddInvoice = ({ navigation, route }) => {
         func = createHTML1;
       } else if (app.template == 2) {
         func = createHTML2;
-      } else {
+      } else if (app.template == 3) {
         func = createHTML3;
+      } else {
+        func = createHTML4;
       }
       let options = {
         //Content to print
@@ -236,8 +243,10 @@ const AddInvoice = ({ navigation, route }) => {
       func = createHTML1;
     } else if (app.template == 2) {
       func = createHTML2;
-    } else {
+    } else if (app.template == 3) {
       func = createHTML3;
+    } else {
+      func = createHTML4;
     }
     try {
       const html = await func({

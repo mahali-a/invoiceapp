@@ -1412,3 +1412,561 @@ export const createHTML2 = ({
 
     `;
 };
+
+export const createHTML4 = ({
+  businessName,
+  email,
+  client,
+  profile,
+  invoiceNumber,
+  invoiceDate,
+  items,
+  subtotal,
+  tax,
+  total,
+  notes,
+  signature,
+}) => {
+  return `
+  <!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Io (third)</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      b,
+      u,
+      i,
+      center,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td,
+      article,
+      aside,
+      canvas,
+      details,
+      embed,
+      figure,
+      figcaption,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      output,
+      ruby,
+      section,
+      summary,
+      time,
+      mark,
+      audio,
+      video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font: inherit;
+        font-size: 100%;
+        vertical-align: baseline;
+      }
+
+      html {
+        line-height: 1;
+      }
+
+      ol,
+      ul {
+        list-style: none;
+      }
+
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+
+      caption,
+      th,
+      td {
+        text-align: left;
+        font-weight: normal;
+        vertical-align: middle;
+      }
+
+      q,
+      blockquote {
+        quotes: none;
+      }
+      q:before,
+      q:after,
+      blockquote:before,
+      blockquote:after {
+        content: "";
+        content: none;
+      }
+
+      a img {
+        border: none;
+      }
+
+      article,
+      aside,
+      details,
+      figcaption,
+      figure,
+      footer,
+      header,
+      hgroup,
+      main,
+      menu,
+      nav,
+      section,
+      summary {
+        display: block;
+      }
+
+      .clearfix {
+        display: block;
+        clear: both;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      b,
+      strong,
+      .bold {
+        font-weight: bold;
+      }
+
+      #container {
+        font: normal 13px/1.4em "Open Sans", Sans-serif;
+        margin: 0 auto;
+        padding: 50px 40px;
+        min-height: 1058px;
+      }
+
+      #memo .company-name {
+        background: #8ba09e url("../img/arrows.png") 560px center no-repeat;
+        background-size: 100px auto;
+        padding: 10px 20px;
+        position: relative;
+        margin-bottom: 15px;
+      }
+      #memo .company-name span {
+        color: white;
+        display: inline-block;
+        min-width: 20px;
+        font-size: 36px;
+        font-weight: bold;
+        line-height: 1em;
+      }
+      #memo .company-name .right-arrow {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 100px;
+        background: url("../img/right-arrow.png") right center no-repeat;
+        background-size: auto 60px;
+      }
+      #memo .logo {
+        float: left;
+        clear: left;
+        margin-left: 20px;
+      }
+      #memo .logo img {
+        width: 150px;
+        height: 100px;
+      }
+      #memo .company-info {
+        margin-left: 20px;
+        float: left;
+        font-size: 12px;
+        color: #8b8b8b;
+      }
+      #memo .company-info div {
+        margin-bottom: 3px;
+        min-width: 20px;
+      }
+      #memo .company-info span {
+        display: inline-block;
+        min-width: 20px;
+      }
+      #memo:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      #invoice-info {
+        float: left;
+        margin: 25px 0 0 20px;
+      }
+      #invoice-info > div {
+        float: left;
+      }
+      #invoice-info > div > span {
+        display: block;
+        min-width: 20px;
+        min-height: 18px;
+        margin-bottom: 3px;
+      }
+      #invoice-info > div:last-child {
+        margin-left: 20px;
+      }
+      #invoice-info:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      #client-info {
+        float: right;
+        margin: 5px 20px 0 0;
+        min-width: 220px;
+        text-align: right;
+      }
+      #client-info > div {
+        margin-bottom: 3px;
+        min-width: 20px;
+      }
+      #client-info span {
+        display: block;
+        min-width: 20px;
+      }
+
+      #invoice-title-number {
+        text-align: center;
+        margin: 20px 0;
+      }
+      #invoice-title-number span {
+        display: inline-block;
+        min-width: 20px;
+      }
+      #invoice-title-number #title {
+        margin-right: 15px;
+        text-align: right;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      #invoice-title-number #number {
+        font-size: 15px;
+        text-align: left;
+      }
+
+      table {
+        table-layout: fixed;
+      }
+      table th,
+      table td {
+        vertical-align: top;
+        word-break: keep-all;
+        word-wrap: break-word;
+      }
+
+      #items {
+        margin: 20px 0 35px 0;
+      }
+      #items .first-cell,
+      #items table th:first-child,
+      #items table td:first-child {
+        width: 18px;
+        text-align: right;
+      }
+      #items table {
+        border-collapse: separate;
+        width: 100%;
+      }
+      #items table th {
+        padding: 12px 10px;
+        text-align: right;
+        background: #e6e7e7;
+        border-bottom: 4px solid #487774;
+      }
+      #items table th:nth-child(2) {
+        width: 30%;
+        text-align: left;
+      }
+      #items table th:last-child {
+        text-align: right;
+        padding-right: 20px !important;
+      }
+      #items table td {
+        padding: 15px 10px;
+        text-align: right;
+        border-right: 1px solid #cccccf;
+      }
+      #items table td:first-child {
+        text-align: left;
+        border-right: 0 !important;
+      }
+      #items table td:nth-child(2) {
+        text-align: left;
+      }
+      #items table td:last-child {
+        border-right: 0 !important;
+        padding-right: 20px !important;
+      }
+
+      .currency {
+        border-bottom: 4px solid #487774;
+        padding: 0 20px;
+      }
+      .currency span {
+        font-size: 11px;
+        font-style: italic;
+        color: #8b8b8b;
+        display: inline-block;
+        min-width: 20px;
+      }
+
+      #sums {
+        float: right;
+        background: #8ba09e url("../img/left-arrow.png") -17px bottom no-repeat;
+        background-size: auto 100px;
+        color: white;
+      }
+      #sums table tr th,
+      #sums table tr td {
+        min-width: 100px;
+        padding: 8px 20px 8px 35px;
+        text-align: right;
+        font-weight: 600;
+      }
+      #sums table tr th {
+        text-align: left;
+        padding-right: 25px;
+      }
+      #sums table tr.amount-total th {
+        text-transform: uppercase;
+      }
+      #sums table tr.amount-total th,
+      #sums table tr.amount-total td {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      #sums table tr:last-child th {
+        text-transform: uppercase;
+      }
+      #sums table tr:last-child th,
+      #sums table tr:last-child td {
+        font-size: 16px;
+        font-weight: bold;
+        padding-top: 20px !important;
+        padding-bottom: 40px !important;
+      }
+
+      #terms {
+        margin: 50px 20px 10px 20px;
+      }
+      #terms > span {
+        display: inline-block;
+        min-width: 20px;
+        font-weight: bold;
+      }
+      #terms > div {
+        margin-top: 10px;
+        min-height: 50px;
+        min-width: 50px;
+      }
+
+      .payment-info {
+        margin: 0 20px;
+      }
+      .payment-info div {
+        font-size: 12px;
+        color: #8b8b8b;
+        display: inline-block;
+        min-width: 20px;
+      }
+
+      .ib_bottom_row_commands {
+        margin: 10px 0 0 20px !important;
+      }
+
+      .ibcl_tax_value:before {
+        color: white !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <section id="memo">
+        <div class="company-name">
+          <span>${profile.companyName}</span>
+          <div class="right-arrow"></div>
+        </div>
+
+        <div class="logo">
+          <img src=${profile.logo} />
+        </div>
+
+        <div class="company-info">
+          <div>
+            <span>${profile.address}</span>
+          </div>
+          <div>${profile.email}</div>
+          <div>${profile.phoneNo}</div>
+        </div>
+      </section>
+
+
+      <section id="client-info">
+        <span>Bill to:</span>
+        <div>
+          <span class="bold">${client.company}</span>
+        </div>
+
+        <div>
+          <span>${client.address}</span>
+        </div>
+
+        <div>
+          <span>${client.city}</span>
+        </div>
+
+        <div>
+          <span>${client.phoneNo}</span>
+        </div>
+
+        <div>
+          <span>${client.email}</span>
+        </div>
+
+
+      </section>
+
+      <div class="clearfix"></div>
+
+      <section id="invoice-title-number">
+        <span id="title">Invoice No:</span>
+        <span id="number">${invoiceNumber}</span>
+      </section>
+
+      <div class="clearfix"></div>
+
+      <section id="items">
+        <table cellpadding="0" cellspacing="0">
+          <tr>
+            <th>#</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Tax</th>
+            <th>Discount</th>
+            <th>Total</th>
+          </tr>
+
+          <tr data-iterate="item">
+            ${items.map((currElement, index) => {
+              return `
+                 <td>${index + 1}</td>
+            <!-- Don't remove this column as it's needed for the row commands -->
+            <td>${currElement.description}</td>
+            <td>${currElement.quantity}</td>
+            <td>GHS ${currElement.price}</td>
+            <td>${currElement.discount}</td>
+            <td>${currElement.tax}</td>
+            <td>GHS ${currElement.price * currElement.quantity}.00</td>
+            `;
+            })}
+          </tr>
+        </table>
+      </section>
+
+  
+
+      <section id="sums">
+        <table cellpadding="0" cellspacing="0">
+          <tr>
+            <th>Subtotal</th>
+            <td>${subtotal}</td>
+          </tr>
+
+          <tr data-iterate="tax">
+            <th>Tax</th>
+            <td>${tax}</td>
+          </tr>
+
+          <tr class="amount-total">
+            <th>Amount Total</th>
+            <td>${total}</td>
+          </tr>
+
+         
+        </table>
+      </section>
+
+      <div class="clearfix"></div>
+
+      <section id="terms">
+        <span>Terms</span>
+        <div>${notes}</div>
+      </section>
+
+      
+    </div>
+  </body>
+</html>
+
+  `;
+};
