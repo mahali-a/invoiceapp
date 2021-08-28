@@ -15,6 +15,7 @@ const ChooseTemplate = ({ navigation }) => {
     { type: 1, image: require("../assets/images/pic3.jpg") },
     { type: 2, image: require("../assets/images/pic.png") },
     { type: 3, image: require("../assets/images/pic2.png") },
+    { type: 4, image: require("../assets/images/pic4.png") },
   ];
 
   return (

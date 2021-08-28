@@ -4,18 +4,9 @@ import { FlatList, RectButton } from "react-native-gesture-handler";
 import { CommonActions, DrawerActions } from "@react-navigation/native";
 import dateFormat from "dateformat";
 
-import {
-  Appbar,
-  Button,
-  FAB,
-  Headline,
-  TextInput,
-  Title,
-} from "react-native-paper";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import { Appbar, FAB, Title } from "react-native-paper";
 import { getCurrency } from "../util";
 import { useSelector, useDispatch } from "react-redux";
-import { setAppState } from "../redux/actions";
 import { SET_APP_STATE } from "../redux/types";
 
 const Invoice = ({ navigation }) => {
@@ -88,7 +79,6 @@ const Invoice = ({ navigation }) => {
           </View>
         )}
         renderItem={({ item }) => {
-          
           return (
             <RectButton
               onPress={() => {
@@ -101,7 +91,7 @@ const Invoice = ({ navigation }) => {
                 });
 
                 navigation.navigate("AddInvoice", {
-                  item
+                  item,
                 });
               }}
               style={{
